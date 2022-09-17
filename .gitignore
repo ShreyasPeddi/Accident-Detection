@@ -21,3 +21,4 @@ doc/api/
 android/app/google-services.json
 lib/firebase_options.dart
 *.log
+*.env
