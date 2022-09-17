@@ -20,3 +20,4 @@ doc/api/
 # Firebase
 android/app/google-services.json
 lib/firebase_options.dart
+*.log
