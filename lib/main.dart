@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hypertrack_plugin/const/constants.dart';
 import 'package:hypertrack_plugin/hypertrack.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

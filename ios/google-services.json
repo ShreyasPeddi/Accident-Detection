@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "687412326552",
+    "project_id": "hack-the-north-5b89f",
+    "storage_bucket": "hack-the-north-5b89f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687412326552:android:af3bfd0a81c26b051620ed",
+        "android_client_info": {
+          "package_name": "com.htn.accident"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687412326552-u25s891m6os8p52mmbs3g1ld5ivco7hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5xoG5P2D4Tqhw-8s_yX-5BopcD8jMfYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687412326552-u25s891m6os8p52mmbs3g1ld5ivco7hk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687412326552-el1vglf3se6uh9phin0kk3nrokbq7ntp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hypertrack.quickstartflutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687412326552:android:8e7c56147167e89c1620ed",
+        "android_client_info": {
+          "package_name": "com.hypertrack.sdk.flutter.quickstart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687412326552-u25s891m6os8p52mmbs3g1ld5ivco7hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5xoG5P2D4Tqhw-8s_yX-5BopcD8jMfYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687412326552-u25s891m6os8p52mmbs3g1ld5ivco7hk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687412326552-el1vglf3se6uh9phin0kk3nrokbq7ntp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hypertrack.quickstartflutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
