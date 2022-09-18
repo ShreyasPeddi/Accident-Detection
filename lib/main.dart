@@ -110,11 +110,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: const ColorScheme.light(primary: Colors.green),
+        colorScheme: const ColorScheme.light(primary: Colors.blue),
       ),
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('HyperTrack Quickstart'),
+            title: const Text('CollisionSpect'),
             centerTitle: true,
           ),
           body: ListView(
@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: isRunning ? Colors.red : Colors.green),
+                        primary: isRunning ? Colors.red : Colors.blue),
                     onPressed: () {
                       isRunning
                           ? _hypertrackFlutterPlugin.stop()
