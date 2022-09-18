@@ -1,14 +1,16 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hypertrack_plugin/const/constants.dart';
 import 'package:hypertrack_plugin/hypertrack.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-
+import 'package:http/http.dart' as http;
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
-  await dotenv.load();
+  // await dotenv.load();
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -32,12 +34,76 @@ class _MyAppState extends State<MyApp> {
   final String _deviceName = "DEVICE NAME";
   String _result = 'Not initialized';
   bool isRunning = false;
+  late Timer timer;
+  double longitude1 = 0;
+  double deltaLong1 = 0;
+  double latitude1 = 0;
+  double deltaLat1 = 0;
+  double longitude2 = 0;
+  double deltaLong2 = 0;
+  double latitude2 = 0;
+  double deltaLat2 = 0;
+  int count = 0;
+  bool shouldWarn = false;
+  bool isShowingPopup = false;
 
   @override
   void initState() {
     super.initState();
     // Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     initHyperTrack();
+
+    this.timer = Timer.periodic(new Duration(seconds: 5), (timer) async {
+      print(timer.tick);
+      http.Response response1 = await http.get(
+          Uri.parse(
+              'https://v3.api.hypertrack.com/devices/09D92AA3-92A2-3409-B3B9-7F94F4D4F6F3/'),
+          headers: {
+            'Authorization':
+                "Basic dHJDd0hwYS1QUVpmTG5nNFExWGZUcGJLZWZVOmxOTTljc1pYN1FYME5PQ3RrU1NjYVJSYjVlMWYtSlk1RFJhXzRta1c1V1RhREtJSE0wWk96UQ=="
+          });
+
+      http.Response response2 = await http.get(
+          Uri.parse(
+              'https://v3.api.hypertrack.com/devices/BADF4DC9-B768-43A6-80A7-1295B419EAC2/'),
+          headers: {
+            'Authorization':
+                "Basic dHJDd0hwYS1QUVpmTG5nNFExWGZUcGJLZWZVOmxOTTljc1pYN1FYME5PQ3RrU1NjYVJSYjVlMWYtSlk1RFJhXzRta1c1V1RhREtJSE0wWk96UQ=="
+          });
+
+      if (response1.statusCode == 200) {
+        final dynamic data1 = jsonDecode(response1.body);
+        final dynamic data2 = jsonDecode(response2.body);
+
+        setState(() {
+          deltaLong1 =
+              longitude1 - data1["location"]["geometry"]["coordinates"][0];
+          longitude1 = data1["location"]["geometry"]["coordinates"][0];
+          deltaLat1 =
+              latitude1 - data1["location"]["geometry"]["coordinates"][1];
+          latitude1 = data1["location"]["geometry"]["coordinates"][1];
+
+          deltaLong2 =
+              longitude2 - data2["location"]["geometry"]["coordinates"][0];
+          longitude2 = data2["location"]["geometry"]["coordinates"][0];
+          deltaLat2 =
+              latitude2 - data2["location"]["geometry"]["coordinates"][1];
+          latitude2 = data2["location"]["geometry"]["coordinates"][1];
+          count++;
+
+          shouldWarn = (latitude1 - latitude2).abs() * 10000 < 1.91 &&
+              (longitude1 - longitude2).abs() * 10000 < 2.1;
+        });
+      } else {
+        print("ERROR: ${response1.statusCode}");
+      }
+    });
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    this.timer.cancel();
   }
 
   @override
@@ -81,6 +147,23 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
+              if (shouldWarn)
+                AlertDialog(
+                  title: const Text('COLLISION COURSE'),
+                  content: const Text('Collision Course'),
+                ),
+              Text("Their Long: $longitude1"),
+              Text("Their Long change: $deltaLong1"),
+              Text("Their Lat: $latitude1"),
+              Text("Their Lat change: $deltaLat1"),
+              Text("Our Long: $longitude2"),
+              Text("Our Long change: $deltaLong2"),
+              Text("Our Lat: $latitude2"),
+              Text("Our Lat change: $deltaLat2"),
+              Text("Count: $count"),
+              Text("WARN: $shouldWarn"),
+              Text("DELTA LAT: ${(latitude1 - latitude2).abs() * 10000}"),
+              Text("DELTA LONG: ${(longitude1 - longitude2).abs() * 10000}"),
             ],
           ),
           bottomNavigationBar: ListTile(

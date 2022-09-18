@@ -33,6 +33,7 @@ dependencies:
       ref: master # specify branch name or commit hash here
   firebase_core: ^1.22.0
   flutter_dotenv: ^5.0.2
+  http: ^0.13.5
   # firebase_core: ^1.19.1
   # firebase_messaging: ^11.4.4
 
