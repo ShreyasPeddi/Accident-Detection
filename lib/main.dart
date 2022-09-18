@@ -9,12 +9,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
   await dotenv.load();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   HyperTrack _hypertrackFlutterPlugin = HyperTrack();
   final String _publishableKey =
       "LdoSqiKd51p2A1BKM7q4oQbJ2CrAzx36XF1vDCQdNAlGS7o0Gjduj8hEyGtErKzVVeAXPjLWj3zRLVUmjhyV2A";
-  final String _deviceName = dotenv.env["DEVICE_NAME"] ?? "DEVICE NAME";
+  final String _deviceName = "DEVICE NAME";
   String _result = 'Not initialized';
   bool isRunning = false;
 
